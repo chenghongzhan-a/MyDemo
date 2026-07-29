@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41c2b7cb061e0424a9daa91b43a5b143, type: 3}
+  m_Name: Recipe_miniGun
+  m_EditorClassIdentifier: 
+  inputs:
+  - itemName: pine_Wood_Board
+    sprite: {fileID: 21300000, guid: 05ec57c272053af44864d1fe0fb301f4, type: 3}
+    count: 4
+  - itemName: rock_Broken
+    sprite: {fileID: 21300000, guid: 9a00ba6e536188c4e9c11f244a1d87d6, type: 3}
+    count: 10
+  output:
+    itemName: miniGun
+    sprite: {fileID: 21300000, guid: 5559f1f033b7bc1479f51a4461b054c1, type: 3}
+    count: 0
+  requiredStationType: 0
