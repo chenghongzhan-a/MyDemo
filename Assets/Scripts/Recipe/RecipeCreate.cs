@@ -11,6 +11,8 @@ public struct ItemRequirement
     public string itemName;
     public Sprite sprite;
     public int count;
+
+    public bool isStack;
 }
 
 [CreateAssetMenu(fileName = "Recipe_", menuName = "Crafting/Recipe")]
