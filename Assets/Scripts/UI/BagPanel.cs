@@ -473,9 +473,11 @@ public class BagPanel : BasePanel
 		foreach (Transform child in contentRecipe.transform)
 			Destroy(child.gameObject);
 
-		// 统计背包 + 快捷栏所有物品数量
+		//统计背包+快捷栏所有物品数量
 		var itemCounts = new Dictionary<string, int>();
+		//统计背包
 		CountMaterials(bagSlotData, itemCounts);
+		//统计快捷栏
 		if (gamePanel != null)
 			CountMaterials(gamePanel.hotbarSlots, itemCounts);
 

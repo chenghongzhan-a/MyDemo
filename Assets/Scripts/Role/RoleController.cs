@@ -142,8 +142,9 @@ public class RoleController : MonoBehaviour
     {
         if (newItem != null)
         {
-            var sr = newItem.GetComponent<SpriteRenderer>();
+            var sr = newItem.GetComponentInChildren<SpriteRenderer>();
             if (sr != null)
+                sr.sortingLayerName = "Objects";
                 sr.sortingOrder = -(int)(transform.position.y * 100) + 1;
         }
     }
