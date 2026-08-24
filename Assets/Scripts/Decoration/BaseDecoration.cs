@@ -18,6 +18,10 @@ public class BaseDecoration : MonoBehaviour
     /// </summary>
     public bool isSprites = false;
 
+    public SpriteRenderer sr;
+
+    public float hitFlashDuration = 0.1f;
+
     //[Header("需要使用的工具类型")]
     //public ToolType requiredTool;
 
@@ -30,6 +34,7 @@ public class BaseDecoration : MonoBehaviour
     private void Awake()
     {
         currentHealth = maxHealth;
+        sr = GetComponent<SpriteRenderer>();
         if (isSprites)
         {
             GetComponent<SpriteRenderer>().sprite = sprites[Random.Range(0, sprites.Length)];
@@ -39,6 +44,7 @@ public class BaseDecoration : MonoBehaviour
     public virtual void TakeDamage(int damage)
     {
         currentHealth -= damage;
+        StartCoroutine(FlashCoroutine());
         if (currentHealth <= 0)
         {
             OnDestroyed();
@@ -101,5 +107,17 @@ public class BaseDecoration : MonoBehaviour
                 obj.GetComponent<DropItemBounce>().UseBounce();
             }
         }
+    }
+
+    /// <summary>
+    /// 受击之后变红
+    /// </summary>
+    /// <returns></returns>
+    protected IEnumerator FlashCoroutine()
+    {
+        if (sr == null) yield break;
+        sr.color = Color.red;
+        yield return new WaitForSeconds(hitFlashDuration);
+        if (sr != null) sr.color = Color.white;
     }
 }

@@ -18,13 +18,13 @@ public class SeedBase : ItemBase
 
         Vector2 mouseWorldPos = MapGenerator.Instance.playerCamera.ScreenToWorldPoint(Input.mousePosition);
 
-        // ===== 加这段：检查这个瓦片是否已经有东西了 =====
+        //检查这个瓦片是否已经有东西了
         Vector2Int chunkCoord = MapGenerator.Instance.WorldToChunk(mouseWorldPos);
         Vector2Int localPos = MapGenerator.Instance.WorldToLocal(mouseWorldPos);
         string key = $"{chunkCoord.x}_{chunkCoord.y}_{localPos.x}_{localPos.y}";
+        //已经有玩家放置的物品，不能再种
         if (ArchiveManager.Instance.currentWorldMod.placedObjects.ContainsKey(key))
-            return;  // 已经有玩家放置的物品，不能再种
-                     // ===== 检查结束 =====
+            return;  
 
         switch (MapGenerator.Instance.GetTileAtWorld(mouseWorldPos))
         {

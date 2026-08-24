@@ -16,7 +16,13 @@ public class RoleController : MonoBehaviour
     public float healthDownSpeed;
     public Transform handPoint;
     public ItemBase itemHandle;
+    /// <summary>
+    /// 玩家手上拿的东西
+    /// </summary>
     GameObject newItem;
+    /// <summary>
+    /// 玩家的数据
+    /// </summary>
     PlayerArchiveInfo player;
 
     private UnityAction onLeftClick;

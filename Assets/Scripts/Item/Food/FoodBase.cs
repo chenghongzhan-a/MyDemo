@@ -28,5 +28,11 @@ public class FoodBase : ItemBase
         {
             player.thirst = player.maxThirst;
         }
+        UIMgr.Instance.GetPanel<GamePanel>((panel) =>
+        {
+            panel.ConsumeEquippedItem();
+            panel.SaveInventoryToArchive();
+            ArchiveManager.Instance.SaveCurrentGame(ArchiveManager.Instance.currentArchive);
+        });
     }
 }

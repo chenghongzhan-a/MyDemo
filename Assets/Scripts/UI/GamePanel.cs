@@ -357,7 +357,7 @@ public class GamePanel : BasePanel
     }
 
     /// <summary>
-    /// 清空道具栏以及手上拿着的物品
+    /// 减少或者清空道具栏以及手上拿着的物品
     /// </summary>
     public void ConsumeEquippedItem()
     {
