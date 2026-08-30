@@ -86,7 +86,7 @@ public class ChunkData
     public int chunkSize;
 
     /// <summary>
-    /// 二维瓦片数组 [x, y]
+    /// 二维瓦片数组
     /// </summary>
     public TileData[,] tiles;
     /// <summary>

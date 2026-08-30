@@ -5,14 +5,14 @@ using UnityEngine.Tilemaps;
 
 public class MapGenerator : MonoBehaviour
 {
-    [Header("=== 地图种子 ===")]
+    [Header("地图种子")]
     [Tooltip("世界种子。相同种子 + 相同配置 = 相同地图。")]
     public int seed = 12345;
 
-    [Tooltip("是否使用随机种子（会覆盖上面的 seed 值）。")]
+    [Tooltip("是否使用随机种子。")]
     public bool useRandomSeed = true;
 
-    [Header("=== 区块配置 ===")]
+    [Header("区块配置")]
     [Tooltip("拖入 ChunkConfig 资产。所有区块参数统一在这里管理。")]
     public ChunkConfig chunkConfig;
 
@@ -25,15 +25,15 @@ public class MapGenerator : MonoBehaviour
     }
 
     /// <summary>
-    /// MapGenerator 单例引用，在Awake中自动设置
+    /// MapGenerator单例引用，在Awake中自动设置
     /// </summary>
     public static MapGenerator Instance { get; private set; }
 
-    [Header("=== 玩家引用 ===")]
-    [Tooltip("玩家的 Transform。脚本会自动跟踪玩家位置来加载/卸载区块。")]
+    [Header("玩家引用")]
+    [Tooltip("玩家的Transform")]
     public Transform player;
 
-    [Header("=== Tile 资源（在 Inspector 中拖入） ===")]
+    [Header("Tile资源")]
     public TileBase tileDeepSea;      // 深海瓦片
     public TileBase tileShallowSea;   // 浅海瓦片
     public TileBase tileSand;         // 沙滩瓦片
@@ -45,16 +45,16 @@ public class MapGenerator : MonoBehaviour
     public TileBase tileSnow;         // 雪地瓦片
 
     [Header("装饰物预制体")]
-    [Tooltip("树木预制体。留空则不生成树木。")]
+    [Tooltip("树木预制体 留空则不生成树木")]
     public GameObject treePrefab;
-    [Tooltip("石头预制体。留空则不生成石头。")]
+    [Tooltip("石头预制体 留空则不生成石头")]
     public GameObject rockPrefab;
-    [Tooltip("灌木预制体。留空则不生成灌木。")]
+    [Tooltip("灌木预制体 留空则不生成灌木")]
     public GameObject bushPrefab;
-    [Tooltip("花朵预制体。留空则不生成花朵。")]
+    [Tooltip("花朵预制体 留空则不生成花朵")]
     public GameObject flowerPrefab;
 
-    [Tooltip("生成的装饰物的父节点。")]
+    [Tooltip("生成的装饰物的父节点")]
     public Transform objectsParent;
 
     //运行时私有变量
@@ -66,12 +66,12 @@ public class MapGenerator : MonoBehaviour
 
     //区块追踪
     /// <summary>
-    /// 当前已加载的区块 GameObject（key=区块坐标, value=区块GameObject）
+    /// 当前已加载的区块GameObject
     /// </summary>
     private Dictionary<Vector2Int, GameObject> activeChunks = new Dictionary<Vector2Int, GameObject>();
 
     /// <summary>
-    /// 已生成的区块数据缓存（key=区块坐标, value=数据）
+    /// 已生成的区块数据缓存
     /// </summary>
     private Dictionary<Vector2Int, ChunkData> chunkDataCache = new Dictionary<Vector2Int, ChunkData>();
 
