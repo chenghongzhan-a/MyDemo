@@ -1,0 +1,53 @@
+ManifestFileVersion: 0
+CRC: 4147213197
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: eb71428e69cf0eb66a14f71f43e6ef3c
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: cf29baa452680496e128d9ce98deb3d3
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: eb71428e69cf0eb66a14f71f43e6ef3c
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 50
+  Script: {instanceID: 0}
+- Class: 61
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 9435f91eef8d23f43ac7fcb5327ce689, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: a51e9fedeb090f54d99e79504eda8e73, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: c55a74d5dffe92a498876ced35206e66, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 1d115ce02a4fa514b84915ac2910fe51, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 212
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 687078895
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Editor/ArtRes/Decoration/Tree.prefab
+- Assets/Editor/ArtRes/Decoration/Rock.prefab
+- Assets/Editor/ArtRes/Decoration/blue_Flower.prefab
+- Assets/Editor/ArtRes/Decoration/bush.prefab
+- Assets/Editor/ArtRes/Decoration/tuft.prefab
+Dependencies:
+- "C:/Users/\u7A0B\u9E3F\u5C55/Desktop/files/MyDemo/AssetBundles/PC/material"

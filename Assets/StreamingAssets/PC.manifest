@@ -1,0 +1,37 @@
+ManifestFileVersion: 0
+CRC: 1018462178
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: sound
+      Dependencies: {}
+    Info_1:
+      Name: music
+      Dependencies: {}
+    Info_2:
+      Name: ui
+      Dependencies:
+        Dependency_0: material
+    Info_3:
+      Name: recipe
+      Dependencies: {}
+    Info_4:
+      Name: material
+      Dependencies:
+        Dependency_0: bullet
+    Info_5:
+      Name: player
+      Dependencies: {}
+    Info_6:
+      Name: decoration
+      Dependencies:
+        Dependency_0: material
+    Info_7:
+      Name: bullet
+      Dependencies: {}
+    Info_8:
+      Name: biology
+      Dependencies: {}
+    Info_9:
+      Name: camera
+      Dependencies: {}

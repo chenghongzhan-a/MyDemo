@@ -9,7 +9,7 @@ using UnityEngine.Events;
 public class ABResMgr : BaseManager<ABResMgr>
 {
     //如果是true会通过EditorResMgr去加载 如果是false会通过ABMgr AB包的形式去加载
-    private bool isDebug = true;
+    private bool isDebug = false;
 
     private ABResMgr() { }
 
@@ -18,7 +18,7 @@ public class ABResMgr : BaseManager<ABResMgr>
 #if UNITY_EDITOR
         if(isDebug)
         {
-            //我们自定义了一个AB包中资源的管理方式 对应文件夹名 就是包名 
+            //自定义了一个AB包中资源的管理方式 对应文件夹名 就是包名 
             T res = EditorResMgr.Instance.LoadEditorRes<T>($"{abName}/{resName}");
             callBack?.Invoke(res as T);
         }

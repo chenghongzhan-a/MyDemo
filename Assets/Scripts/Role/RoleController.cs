@@ -210,7 +210,7 @@ public class RoleController : MonoBehaviour
         {
             UIMgr.Instance.GetPanel<GamePanel>((panel) =>
             {
-                ABResMgr.Instance.LoadResAsync<GameObject>("Material", collision.gameObject.name, (obj) =>
+                ABResMgr.Instance.LoadResAsync<GameObject>("material", collision.gameObject.name, (obj) =>
                 {
                     panel.AddItem(obj);
                 });

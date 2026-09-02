@@ -1,0 +1,35 @@
+ManifestFileVersion: 0
+CRC: 2148019811
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 9c7d00fe716d12352429cace24af1f21
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 8fe6208833191fd29c052c64385aa8b9
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: 9c7d00fe716d12352429cace24af1f21
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 41c2b7cb061e0424a9daa91b43a5b143, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 883a1eacff8373e4c80511de21a3d944, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 687078895
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers:
+- AssemblyName: Assembly-CSharp
+  ClassName: ItemRequirement
+Assets:
+- Assets/Editor/ArtRes/Recipe/HandCraft/Recipe_miniGun.asset
+- Assets/Editor/ArtRes/Recipe/HandCraft/Recipe_wooden_Board.asset
+- Assets/Editor/ArtRes/Recipe/RecipeList/RecipeList_Handcraft.asset
+- Assets/Editor/ArtRes/Recipe/HandCraft/Recipe_stoneAxe.asset
+Dependencies: []

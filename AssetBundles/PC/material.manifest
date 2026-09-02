@@ -1,0 +1,71 @@
+ManifestFileVersion: 0
+CRC: 1492842566
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 1e337b690e9d7d4cec3262decc8104b3
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 6805a0894ee805c5d4be21c0681aa001
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: 1e337b690e9d7d4cec3262decc8104b3
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 61
+  Script: {instanceID: 0}
+- Class: 68
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: c2ffe5f3b18b2ce47947c80fc3bd1432, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 84cf28ea515015d42864d2d66a66c360, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: f488adc5f4f1c8a43bc7402420856264, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 47fc0c28a2dc00d44bf2296a858e82ac, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 5c122d4f56ad0d143808fed00a229787, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 2d9f58070e7857c479a74096b4b000e1, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 8e2aecf1ff4893846aaa753ab30e4995, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 212
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 687078895
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Editor/ArtRes/Material/blue_Flower.prefab
+- Assets/Editor/ArtRes/Material/Pineneedle.prefab
+- Assets/Editor/ArtRes/Material/stoneAxe.prefab
+- Assets/Editor/ArtRes/Material/berry_drop_red.prefab
+- Assets/Editor/ArtRes/Material/leather.prefab
+- Assets/Editor/ArtRes/Material/pine_Wood.prefab
+- Assets/Editor/ArtRes/Material/Pinecone.prefab
+- Assets/Editor/ArtRes/Material/rock_Broken.prefab
+- Assets/Editor/ArtRes/Material/shovel_iron.prefab
+- Assets/Editor/ArtRes/Material/pine_Wood_Board.prefab
+- Assets/Editor/ArtRes/Material/miniGun.prefab
+Dependencies:
+- "C:/Users/\u7A0B\u9E3F\u5C55/Desktop/files/MyDemo/AssetBundles/PC/bullet"

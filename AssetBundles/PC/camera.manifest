@@ -1,0 +1,28 @@
+ManifestFileVersion: 0
+CRC: 3858173785
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 4dadf03d0f4d018f8584d81f8583b8e3
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: ec9b5b1f2bcb16a4602b65f6d5df5e87
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: 4dadf03d0f4d018f8584d81f8583b8e3
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 20
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 6493e4add0ef687468ba471d82f2187d, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Editor/ArtRes/Camera/PlayerCamera.prefab
+Dependencies: []

@@ -365,7 +365,7 @@ public abstract class MonsterBase : MonoBehaviour
             if (count <= 0) 
                 continue;
             //¼ÓÔØµôÂäÎï
-            ABResMgr.Instance.LoadResAsync<GameObject>("Material", entry.itemName, (prefab) =>
+            ABResMgr.Instance.LoadResAsync<GameObject>("material", entry.itemName, (prefab) =>
             {
                 if (prefab == null)
                 {

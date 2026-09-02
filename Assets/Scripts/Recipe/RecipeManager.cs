@@ -5,6 +5,9 @@ using UnityEngine.Events;
 
 public class RecipeManager : BaseManager<RecipeManager>
 {
+    private Dictionary<int, List<UnityAction<List<RecipeCreate>>>> pending =
+    new Dictionary<int, List<UnityAction<List<RecipeCreate>>>>();
+
     // 缓存：已经加载过的 RecipeListSO
     private Dictionary<int, List<RecipeCreate>> cache = new Dictionary<int, List<RecipeCreate>>();
     // 站台ID → AB包中资源名
@@ -21,20 +24,27 @@ public class RecipeManager : BaseManager<RecipeManager>
     /// </summary>
     public void GetRecipesForStation(int stationType, UnityAction<List<RecipeCreate>> callBack)
     {
-        //缓存有就直接返回
         if (cache.TryGetValue(stationType, out var cached))
         {
             callBack(cached);
             return;
         }
 
-        //缓存没有则异步加载
-        string assetName = stationToAsset[stationType];
-        ABResMgr.Instance.LoadResAsync<RecipeList>("Recipe/RecipeList", assetName, (list) =>
+        if (!pending.ContainsKey(stationType))
         {
-            cache[stationType] = list.recipes;
-            callBack(list.recipes);
-        });
-    }
+            pending[stationType] = new List<UnityAction<List<RecipeCreate>>>();
 
+            ABResMgr.Instance.LoadResAsync<RecipeList>("recipe",
+                stationToAsset[stationType], (list) =>
+                {
+                    cache[stationType] = list.recipes;
+
+                    foreach (var cb in pending[stationType])
+                        cb(list.recipes);
+                    pending.Remove(stationType);
+                });
+        }
+
+        pending[stationType].Add(callBack);
+    }
 }

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Timeline.TimelinePlaybackControls;
-
 public class BagPanel : BasePanel
 {
 	private GamePanel gamePanel;
@@ -30,8 +28,11 @@ public class BagPanel : BasePanel
 
 	public GameObject contentRecipe;
 	public GameObject contentShow;
+    private int craftRefreshVersion;
 
-	public override void HideMe()
+    private bool bagReady;
+    private bool hotbarReady;
+    public override void HideMe()
 	{
 		Time.timeScale = 1f;
 		//关闭背包时，如果鼠标上还拿着物品，尝试放回背包
@@ -62,21 +63,25 @@ public class BagPanel : BasePanel
 
 	public override void ShowMe()
 	{
-		LoadBagFromArchive();
-		//刷新所有背包槽位显示
-		for (int i = 0; i < bagSlotData.Length; i++)
-		{
-			RefreshSlotVisual(i);
-		}
-		//刷新鼠标上拿着的物品显示
-		UpdateHeldCursorVisual();
-		Time.timeScale = 0f;
-		//刷新手部工作台显示
-		UpdateHandWork();
-		gamePanel = FindObjectOfType<GamePanel>();
-	}
+        //必须在统计前赋值，否则UpdateHandWork里gamePanel是null
+        gamePanel = FindObjectOfType<GamePanel>();
 
-	protected override void ClickBtn(string btnName)
+        //本次打开先归零
+        bagReady = false;
+        hotbarReady = false;
+
+        //快捷栏如果已经由GamePanel恢复完，直接标记就绪
+        if (gamePanel != null && gamePanel.inventoryReady)
+            hotbarReady = true;
+
+        //背包异步恢复，完成后会调OnBagDataLoaded
+        LoadBagFromArchive();
+
+        UpdateHeldCursorVisual();
+        Time.timeScale = 0f;
+    }
+
+    protected override void ClickBtn(string btnName)
 	{
 		// 背包格子按钮 "Button0" ~ "Button29"
 		if (btnName.StartsWith("Button"))
@@ -396,34 +401,60 @@ public class BagPanel : BasePanel
 			}
 		}
 	}
-	//从存档加载背包数据到面板
-	public void LoadBagFromArchive()
-	{
-		var archive = ArchiveManager.Instance.currentArchive;
+    //从存档加载背包数据到面板
+    public void LoadBagFromArchive()
+    {
+        var archive = ArchiveManager.Instance.currentArchive;
 
-		//// 先清空所有槽位
-		//for (int i = 0; i < bagSlotData.Length; i++)
-		//    bagSlotData[i].item = null;
+        //先清空旧数据，避免上次打开的残留影响统计
+        for (int i = 0; i < bagSlotData.Length; i++)
+        {
+            bagSlotData[i].item = null;
+            bagSlotData[i].count = 0;
+        }
 
-		// 恢复数据
-		foreach (var slotData in archive.bagInventory)
-		{
-			ABResMgr.Instance.LoadResAsync<GameObject>("Material", slotData.itemName, (prefab) =>
-			{
-				bagSlotData[slotData.slotIndex].item = prefab;
-				bagSlotData[slotData.slotIndex].count = slotData.count;
-				// 加载完成后刷新对应槽位显示
-				RefreshSlotVisual(slotData.slotIndex);
-			});
-		}
-	}
+        int totalToLoad = archive.bagInventory.Count;
+        int loadedCount = 0;
 
-	/// <summary>
-	/// 给背包添加物品
-	/// </summary>
-	/// <param name="itemPrefab"></param>
-	/// <returns></returns>
-	public bool TryAddItem(GameObject itemPrefab)
+        if (totalToLoad == 0)
+        {
+            OnBagDataLoaded();
+            return;
+        }
+
+        foreach (var slotData in archive.bagInventory)
+        {
+            if (slotData.slotIndex < 0 || slotData.slotIndex >= bagSlotData.Length)
+            {
+                loadedCount++;
+                continue;
+            }
+
+            ABResMgr.Instance.LoadResAsync<GameObject>("material", slotData.itemName, (prefab) =>
+            {
+                if (prefab != null)
+                {
+                    bagSlotData[slotData.slotIndex].item = prefab;
+                    bagSlotData[slotData.slotIndex].count = slotData.count;
+                    RefreshSlotVisual(slotData.slotIndex);
+                }
+
+                loadedCount++;
+
+                if (loadedCount >= totalToLoad)
+                {
+                    OnBagDataLoaded();
+                }
+            });
+        }
+    }
+
+    /// <summary>
+    /// 给背包添加物品
+    /// </summary>
+    /// <param name="itemPrefab"></param>
+    /// <returns></returns>
+    public bool TryAddItem(GameObject itemPrefab)
 	{
 		if (itemPrefab == null) return false;
 		var newItem = itemPrefab.GetComponent<ItemBase>();
@@ -470,7 +501,10 @@ public class BagPanel : BasePanel
 	/// </summary>
 	private void UpdateHandWork()
 	{
-		foreach (Transform child in contentRecipe.transform)
+        craftRefreshVersion++;
+        int version = craftRefreshVersion;
+
+        foreach (Transform child in contentRecipe.transform)
 			Destroy(child.gameObject);
 
 		//统计背包+快捷栏所有物品数量
@@ -483,11 +517,14 @@ public class BagPanel : BasePanel
 
 		RecipeManager.Instance.GetRecipesForStation(0, (list) =>
 		{
-			for (int i = 0; i < list.Count; i++)
+            //过期回调直接丢弃
+            if (version != craftRefreshVersion) return;
+
+            for (int i = 0; i < list.Count; i++)
 			{
 				int index = i;
 
-				// 判断材料是否足够
+				//判断材料是否足够
 				bool canCraft = true;
 				foreach (var input in list[index].inputs)
 				{
@@ -500,12 +537,15 @@ public class BagPanel : BasePanel
 
 				ABResMgr.Instance.LoadResAsync<GameObject>("ui", "Recipe", (recipe) =>
 				{
-					var obj = Instantiate(recipe);
+                    //创建之前再检查一次
+                    if (version != craftRefreshVersion) return;
+
+                    var obj = Instantiate(recipe);
 					obj.transform.SetParent(contentRecipe.transform);
 					obj.transform.localPosition = Vector3.zero;
 					obj.transform.localScale = Vector3.one;
 
-					// 图标
+					//图标
 					var img = obj.transform.Find("imgItem").GetComponent<Image>();
 					img.sprite = list[index].output.sprite;
 					img.color = new Color(1, 1, 1, 1);
@@ -514,16 +554,16 @@ public class BagPanel : BasePanel
 					rect.anchoredPosition = Vector2.zero;
 					img.SetNativeSize();
 
-					// 数量文本
+					//数量文本
 					var txt = obj.GetComponentInChildren<TMP_Text>();
 					txt.text = list[index].output.count > 0 ? list[index].output.count.ToString() : "";
 
-					// 按钮状态
+					//按钮状态
 					var btn = obj.GetComponent<Button>();
 					btn.interactable = canCraft;
 					img.color = canCraft ? Color.white : new Color(0.35f, 0.35f, 0.35f, 1f);
 
-					// 点击合成
+					//点击合成
 					if (canCraft)
 					{
 						btn.onClick.AddListener(() =>
@@ -610,7 +650,7 @@ public class BagPanel : BasePanel
 		}
 
 		//产物放到鼠标上
-		ABResMgr.Instance.LoadResAsync<GameObject>("Material", recipe.output.itemName, (prefab) =>
+		ABResMgr.Instance.LoadResAsync<GameObject>("material", recipe.output.itemName, (prefab) =>
 		{
 			if (prefab == null) return;
 			heldItemPrefab = prefab;
@@ -651,4 +691,26 @@ public class BagPanel : BasePanel
 			if (slot.count <= 0) slot.item = null;
 		}
 	}
+
+    private void OnBagDataLoaded()
+    {
+        bagReady = true;
+        TryRefreshCraftWhenReady();
+    }
+
+    public void OnInventoryReady()
+    {
+        hotbarReady = true;
+        TryRefreshCraftWhenReady();
+    }
+
+    private void TryRefreshCraftWhenReady()
+    {
+        if (bagReady && hotbarReady)
+        {
+            bagReady = false;
+            hotbarReady = false;
+            UpdateHandWork();
+        }
+    }
 }

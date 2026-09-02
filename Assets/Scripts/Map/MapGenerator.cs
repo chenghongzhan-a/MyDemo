@@ -782,7 +782,7 @@ public class MapGenerator : MonoBehaviour
                 if (!ArchiveManager.Instance.currentWorldMod.placedObjects.TryGetValue(key, out PlacedObjectInfo info))
                     continue;
 
-                ABResMgr.Instance.LoadResAsync<GameObject>("Decoration", info.prefabName, (prefab) =>
+                ABResMgr.Instance.LoadResAsync<GameObject>("decoration", info.prefabName, (prefab) =>
                 {
                     if (prefab == null)
                     {
@@ -854,7 +854,7 @@ public class MapGenerator : MonoBehaviour
                 foreach (ItemSaveData itemData in items)
                 {
                     //根据物品名加载预制体
-                    ABResMgr.Instance.LoadResAsync<GameObject>("Material", itemData.itemName, (prefab) =>
+                    ABResMgr.Instance.LoadResAsync<GameObject>("material", itemData.itemName, (prefab) =>
                     {
                         if (prefab == null)
                         {

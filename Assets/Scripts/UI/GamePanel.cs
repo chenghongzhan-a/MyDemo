@@ -11,6 +11,8 @@ public class GamePanel : BasePanel
 
     public HotbarSlot[] hotbarSlots = new HotbarSlot[10];
 
+    public bool inventoryReady;
+
     public override void HideMe()
     {
 
@@ -18,11 +20,13 @@ public class GamePanel : BasePanel
 
     public override void ShowMe()
     {
+        inventoryReady = false;
+
         playerData = ArchiveManager.Instance.currentArchive;
         player = GameObject.Find("Player").GetComponent<RoleController>();
         LoadInventoryFromArchive();
-        UIMgr.Instance.ShowPanel<BagPanel>();
-        UIMgr.Instance.HidePanel<BagPanel>();
+        //UIMgr.Instance.ShowPanel<BagPanel>();
+        //UIMgr.Instance.HidePanel<BagPanel>();
     }
 
     private void Update()
@@ -41,9 +45,8 @@ public class GamePanel : BasePanel
                 UIMgr.Instance.ShowPanel<GamePausePanel>();
                 break;
             case "btnBag":
-                UIMgr.Instance.GetPanel<BagPanel>((panel) =>
+                UIMgr.Instance.ShowPanel<BagPanel>(E_UILayer.Middle, (panel) =>
                 {
-                    //如果背包打开就关闭
                     if (panel.isOpen)
                     {
                         UIMgr.Instance.HidePanel<BagPanel>();
@@ -51,8 +54,6 @@ public class GamePanel : BasePanel
                     }
                     else
                     {
-                        //如果背包关闭就打开
-                        UIMgr.Instance.ShowPanel<BagPanel>();
                         panel.isOpen = true;
                     }
                 });
@@ -305,16 +306,14 @@ public class GamePanel : BasePanel
     {
         if (playerData == null || playerData.inventory == null || playerData.inventory.Count == 0)
         {
-            // 没有存档数据，直接刷新一次（可能是新档）
+            inventoryReady = true;
             ReFreshHotBarSlot();
+            BagPanel.Instance?.OnInventoryReady();
             return;
         }
 
-        // 先清空所有槽位
         for (int i = 0; i < hotbarSlots.Length; i++)
-        {
             hotbarSlots[i].item = null;
-        }
 
         int loadedCount = 0;
         int totalToLoad = playerData.inventory.Count;
@@ -323,36 +322,26 @@ public class GamePanel : BasePanel
         {
             if (slotData.slotIndex < 0 || slotData.slotIndex >= hotbarSlots.Length)
             {
-                Debug.LogWarning($"LoadInventoryFromArchive: 无效的槽位索引 {slotData.slotIndex}");
+                loadedCount++;
                 continue;
             }
 
-            // 异步加载物品预制体
-            ABResMgr.Instance.LoadResAsync<GameObject>("Material", slotData.itemName, (prefab) =>
+            ABResMgr.Instance.LoadResAsync<GameObject>("material", slotData.itemName, (prefab) =>
             {
-                if (prefab == null)
+                if (prefab != null)
                 {
-                    Debug.LogWarning($"LoadInventoryFromArchive: 加载预制体失败: {slotData.itemName}");
-                    loadedCount++;
-                    return;
+                    hotbarSlots[slotData.slotIndex].item = prefab;
+                    hotbarSlots[slotData.slotIndex].count = slotData.count;
                 }
-
-                hotbarSlots[slotData.slotIndex].item = prefab;
-                hotbarSlots[slotData.slotIndex].count = slotData.count;
-
                 loadedCount++;
-                // 所有物品加载完毕，刷新显示
+
                 if (loadedCount >= totalToLoad)
                 {
+                    inventoryReady = true;
                     ReFreshHotBarSlot();
+                    BagPanel.Instance?.OnInventoryReady();
                 }
             });
-        }
-
-        // 如果没有任何物品需要加载，直接刷新
-        if (totalToLoad == 0)
-        {
-            ReFreshHotBarSlot();
         }
     }
 

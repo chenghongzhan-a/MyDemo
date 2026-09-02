@@ -1,0 +1,42 @@
+ManifestFileVersion: 0
+CRC: 3946419570
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: cc7ff1bf9b353f34e531b17732c78937
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: ba4f21c6f0b3920a7758273b0cc415de
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: cc7ff1bf9b353f34e531b17732c78937
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 50
+  Script: {instanceID: 0}
+- Class: 61
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 31429a104fbacd24d9342557d9b47d7e, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 5c122d4f56ad0d143808fed00a229787, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 212
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Editor/ArtRes/Bullet/bullet_standard.prefab
+Dependencies: []

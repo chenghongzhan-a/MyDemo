@@ -67,7 +67,7 @@ public class MonsterSpawnManager : BaseManager<MonsterSpawnManager>
             return;
         }
         //异步加载怪物预设体
-        ABResMgr.Instance.LoadResAsync<GameObject>("Biology", "WildPig", (prefab) =>
+        ABResMgr.Instance.LoadResAsync<GameObject>("biology", "WildPig", (prefab) =>
         {
             if (prefab == null) return;
             GameObject pig = Object.Instantiate(prefab, candidate, Quaternion.identity);

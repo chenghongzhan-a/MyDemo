@@ -3,13 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-//知识点
-//字典
-//协程
-//AB包相关API
-//委托
-//lambda表达式
-//单例模式基类——>观看Unity小框架视频 进行学习
+
 public class ABMgr : SingletonAutoMono<ABMgr>
 {
     //主包
@@ -236,6 +230,13 @@ public class ABMgr : SingletonAutoMono<ABMgr>
                 yield return req;
                 //异步加载结束后 再替换之前的null  这时 不为null 就证明加载结束了
                 abDic[abName] = req.assetBundle;
+
+                // 加这段
+                if (abDic[abName] == null)
+                {
+                    Debug.LogError($"AB 包加载失败，请检查包是否存在: {abName}，路径: {PathUrl + abName}");
+                    yield break;
+                }
             }
         }
         else
