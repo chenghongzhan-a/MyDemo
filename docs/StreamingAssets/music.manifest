@@ -1,0 +1,22 @@
+ManifestFileVersion: 0
+CRC: 2205868010
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: c7072f67c3449c4a79a39b1887f6136b
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 9a2ca7bdbd1871f7131daf57de908e0c
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: c7072f67c3449c4a79a39b1887f6136b
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Editor/ArtRes/music/BKMusic.mp3
+- Assets/Editor/ArtRes/music/otherside.mp3
+- Assets/Editor/ArtRes/music/Sound/Gun/Shoot/fire1.mp3
+Dependencies: []
